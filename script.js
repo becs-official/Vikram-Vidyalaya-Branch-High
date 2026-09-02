@@ -20,6 +20,10 @@ document.addEventListener('keydown',e=>{if(!lightbox.open)return;if(e.key==='Arr
 const notices = [{date:'To be updated',category:'Notice',title:'School notice information',description:'Official notices and announcements will be published here.'},{date:'To be updated',category:'Update',title:'Academic information',description:'Please contact the school office for current academic updates.'},{date:'To be updated',category:'Announcement',title:'Student activity updates',description:'Upcoming activities and participation information will be added here.'}];
 document.querySelector('#notice-list').innerHTML=notices.map(n=>`<article class="notice"><div class="notice-date">${n.date}<small>${n.category}</small></div><div><h3>${n.title}</h3><p>${n.description}</p></div><a href="#contact">View notice →</a></article>`).join('');
 const header=document.querySelector('.site-header');addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>30),{passive:true});
+const homeBrand=document.querySelector('.site-header .brand[href="index.html#top"]');
+homeBrand?.addEventListener('click',event=>{if(location.pathname.endsWith('/index.html')){event.preventDefault();window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'','#top');}});
+const backToTop=document.querySelector('.footer-bottom a[href="#top"]');
+backToTop?.addEventListener('click',event=>{event.preventDefault();window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'','#top');});
 const toggle=document.querySelector('.menu-toggle'), links=document.querySelector('.nav-links');
 const mobileMenu=matchMedia('(max-width: 1024px)');
 function setMenu(open){

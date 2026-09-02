@@ -20,5 +20,23 @@ document.addEventListener('keydown',e=>{if(!lightbox.open)return;if(e.key==='Arr
 const notices = [{date:'To be updated',category:'Notice',title:'School notice information',description:'Official notices and announcements will be published here.'},{date:'To be updated',category:'Update',title:'Academic information',description:'Please contact the school office for current academic updates.'},{date:'To be updated',category:'Announcement',title:'Student activity updates',description:'Upcoming activities and participation information will be added here.'}];
 document.querySelector('#notice-list').innerHTML=notices.map(n=>`<article class="notice"><div class="notice-date">${n.date}<small>${n.category}</small></div><div><h3>${n.title}</h3><p>${n.description}</p></div><a href="#contact">View notice →</a></article>`).join('');
 const header=document.querySelector('.site-header');addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>30),{passive:true});
-const toggle=document.querySelector('.menu-toggle'), links=document.querySelector('.nav-links');toggle.addEventListener('click',()=>{const open=links.classList.toggle('open');toggle.setAttribute('aria-expanded',open);document.body.classList.toggle('no-scroll',open)});links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');toggle.setAttribute('aria-expanded','false');document.body.classList.remove('no-scroll')}));
+const toggle=document.querySelector('.menu-toggle'), links=document.querySelector('.nav-links');
+const mobileMenu=matchMedia('(max-width: 1024px)');
+function setMenu(open){
+  links.classList.toggle('open',open);
+  links.setAttribute('aria-hidden',String(!open));
+  toggle.setAttribute('aria-expanded',String(open));
+  toggle.querySelector('.sr-only').textContent=open?'Close menu':'Open menu';
+  document.body.classList.toggle('no-scroll',open);
+}
+toggle.addEventListener('click',()=>setMenu(!links.classList.contains('open')));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&links.classList.contains('open')){setMenu(false);toggle.focus();}});
+document.addEventListener('click',event=>{if(links.classList.contains('open')&&!links.contains(event.target)&&!toggle.contains(event.target))setMenu(false);});
+function syncMenuForViewport(){
+  if(mobileMenu.matches)setMenu(false);
+  else {links.classList.remove('open');links.setAttribute('aria-hidden','false');toggle.setAttribute('aria-expanded','false');document.body.classList.remove('no-scroll');}
+}
+mobileMenu.addEventListener('change',syncMenuForViewport);
+syncMenuForViewport();
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));}else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));

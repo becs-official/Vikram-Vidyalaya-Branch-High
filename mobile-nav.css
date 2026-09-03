@@ -1,4 +1,6 @@
 /* Off-canvas navigation for tablet and mobile screens. */
+.brand-school-type { font-size: 13px !important; letter-spacing: .08em !important; }
+
 @media (max-width: 1024px) {
   .menu-toggle { position: relative; display: block; z-index: 12; }
 

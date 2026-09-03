@@ -1,4 +1,6 @@
 const galleryItems = [
+  {image:'assets/school-campus-event.jpeg', category:'events', title:'School campus celebration'},
+  {image:'assets/school-entrance.jpeg', category:'campus', title:'Our school entrance'},
   {image:'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1100&q=82', category:'academics', title:'Learning together'},
   {image:'https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?auto=format&fit=crop&w=900&q=82', category:'cultural', title:'Cultural expression'},
   {image:'https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=82', category:'sports', title:'Team spirit'},

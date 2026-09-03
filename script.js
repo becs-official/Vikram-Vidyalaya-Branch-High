@@ -1,14 +1,13 @@
 const galleryItems = [
-  {image:'assets/school-campus-event.jpeg', category:'events', title:'School campus celebration'},
-  {image:'assets/school-entrance.jpeg', category:'campus', title:'Our school entrance'},
-  {image:'https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1100&q=82', category:'academics', title:'Learning together'},
-  {image:'https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?auto=format&fit=crop&w=900&q=82', category:'cultural', title:'Cultural expression'},
-  {image:'https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=82', category:'sports', title:'Team spirit'},
-  {image:'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1100&q=82', category:'student-life', title:'Sharing experiences'},
-  {image:'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=900&q=82', category:'academics', title:'A focused moment'},
-  {image:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1100&q=82', category:'events', title:'A school day'},
-  {image:'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=900&q=82', category:'campus', title:'Our learning spaces'},
-  {image:'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=900&q=82', category:'student-life', title:'Curiosity in action'}
+  {image:'assets/independence-day-01.jpeg', category:'events', title:'Floral tribute ceremony'},
+  {image:'assets/independence-day-02.jpeg', category:'events', title:'Independence Day assembly'},
+  {image:'assets/independence-day-03.jpeg', category:'events', title:'Flag hoisting celebration'},
+  {image:'assets/independence-day-04.jpeg', category:'cultural', title:'Patriotic dance performance'},
+  {image:'assets/independence-day-05.jpeg', category:'cultural', title:'Student cultural performance'},
+  {image:'assets/independence-day-06.jpeg', category:'cultural', title:'Traditional dance presentation'},
+  {image:'assets/independence-day-07.jpeg', category:'student-life', title:'School courtyard performance'},
+  {image:'assets/independence-day-08.jpeg', category:'events', title:'Independence Day gathering'},
+  {image:'assets/independence-day-09.jpeg', category:'student-life', title:'Students with the national flag'}
 ];
 const gallery = document.querySelector('#gallery-grid'); let visibleItems = galleryItems; let current = 0;
 function renderGallery(filter='all') { visibleItems = filter === 'all' ? galleryItems : galleryItems.filter(item => item.category === filter); gallery.innerHTML = visibleItems.map((item, i) => `<button class="gallery-item" data-index="${i}" aria-label="Open ${item.title}, ${item.category}"><img loading="lazy" src="${item.image}" width="900" height="700" alt="${item.title}" /><span>${item.title}</span></button>`).join(''); }

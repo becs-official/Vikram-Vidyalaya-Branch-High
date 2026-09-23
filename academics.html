@@ -15,7 +15,7 @@
     .academic-hero {
       background: var(--navy-deep);
       color: #fff;
-      padding: 180px 0 100px;
+      padding: 80px 0 100px;
       text-align: center;
     }
     .academic-hero .hindi { color: var(--coral); }
@@ -32,36 +32,88 @@
     
     @media (max-width: 768px) {
       .stage-grid { grid-template-columns: 1fr; }
-      .academic-hero { padding: 140px 0 80px; }
+      .academic-hero { padding: 60px 0 80px; }
     }
   </style>
 </head>
 <body id="top">
-  <div class="info-bar">
-    <div class="shell">
-      <span>Govt. Aided Higher Secondary School | Established 1968</span>
-      <a href="tel:+918100164646">Call: 8100 164 646</a>
+  <header class="site-header">
+    <div class="top-utility-bar">
+      <div class="shell utility-flex">
+        <div class="utility-left">
+          Govt. Aided Higher Secondary School
+        </div>
+        <div class="utility-right">
+          <button type="button" class="lang-btn" data-lang="hi" aria-label="Switch to Hindi">हिंदी</button> | 
+          <button type="button" class="lang-btn active" data-lang="en" aria-label="Switch to English">English</button>
+          
+          <div class="a11y-dropdown">
+            <button type="button" class="a11y-toggle" aria-expanded="false">Accessibility</button>
+            <div class="a11y-menu">
+              <button type="button" id="a11y-contrast">Toggle High Contrast</button>
+              <button type="button" id="a11y-text-inc">Increase Text Size</button>
+              <button type="button" id="a11y-text-dec">Decrease Text Size</button>
+            </div>
+          </div>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <header class="site-header scrolled">
-    <nav class="nav shell" aria-label="Main navigation">
-      <a class="brand" href="index.html#top">
-        <span class="crest" aria-hidden="true">V</span>
-        <span class="brand-text">
-          <strong>Salkia Shri Vikram</strong>
-          <small>Balika Vidyalaya</small>
-        </span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-menu">
-        <span></span><span></span><span></span><span class="sr-only">Menu</span>
-      </button>
-      <div class="nav-links" id="primary-menu" aria-hidden="true">
-        <a href="index.html#heritage">Heritage</a>
-        <a href="academics.html" aria-current="page" style="color:var(--coral);">Academics</a>
-        <a href="index.html#school-life">School Life</a>
-        <a href="index.html#gallery">Gallery</a>
-        <a href="index.html#contact">Contact Us</a>
+    <div class="main-branding-header">
+      <div class="shell branding-flex">
+        <div class="logo-container">
+          <img src="assets/logo.jpg" alt="Salkia Shri Vikram Balika Vidyalaya Emblem" class="school-logo-img" />
+        </div>
+        <div class="branding-text">
+          <div class="school-name-hindi">सलकिया श्री विक्रम बालिका विद्यालय</div>
+          <h1 class="school-name-english">SALKIA SHRI VIKRAM BALIKA VIDYALAYA</h1>
+          <div class="school-subtitle">Govt. Aided Higher Secondary School &nbsp;|&nbsp; 15 Raj Mohan Bose Lane, Howrah – 711101</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="main-navigation" aria-label="Main navigation" id="main-nav-sticky">
+      <div class="shell nav-flex">
+        <div class="mobile-brand" aria-hidden="true">
+          <img src="assets/logo.jpg" alt="" class="mobile-logo" />
+          <span class="mobile-name">Salkia Shri Vikram</span>
+        </div>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="primary-menu">
+          <li><a href="index.html#top">HOME</a></li>
+          <li class="dropdown">
+            <a href="index.html#heritage" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">ABOUT US <span class="caret">▼</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="index.html#heritage">About the School</a></li>
+              <li><a href="index.html#heritage">Our Heritage</a></li>
+              <li><a href="index.html#academics">Vision & Values</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#academics" class="dropdown-toggle active" aria-haspopup="true" aria-expanded="false">ACADEMICS <span class="caret">▼</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="academics.html">Academic Information</a></li>
+              <li><a href="index.html#academics">Curriculum / Learning</a></li>
+              <li><a href="index.html#notices">Examination</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="index.html#school-life" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">ACTIVITIES <span class="caret">▼</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="index.html#school-life">Cultural Activities</a></li>
+              <li><a href="index.html#school-life">Student Life</a></li>
+              <li><a href="index.html#gallery">Events</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html#heritage">HERITAGE</a></li>
+          <li><a href="index.html#gallery">GALLERY</a></li>
+          <li><a href="index.html#notices">NOTICES</a></li>
+          <li><a href="index.html#contact">ADMISSIONS</a></li>
+          <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
       </div>
     </nav>
   </header>

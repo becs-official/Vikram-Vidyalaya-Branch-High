@@ -81,9 +81,23 @@ if(lightbox) {
 }
 
 // Header scroll
-const header = document.querySelector('.site-header');
-if(header) {
-  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 30), {passive:true});
+const siteHeader = document.querySelector('.site-header');
+const navSticky = document.querySelector('#main-nav-sticky');
+const brandingHeader = document.querySelector('.main-branding-header');
+
+if (navSticky && brandingHeader) {
+  window.addEventListener('scroll', () => {
+    const headerHeight = brandingHeader.offsetTop + brandingHeader.offsetHeight;
+    if (window.scrollY > headerHeight) {
+      navSticky.classList.add('sticky');
+      document.body.style.paddingTop = navSticky.offsetHeight + 'px';
+      document.querySelector('.mobile-brand').style.display = 'flex';
+    } else {
+      navSticky.classList.remove('sticky');
+      document.body.style.paddingTop = '0px';
+      document.querySelector('.mobile-brand').style.display = 'none';
+    }
+  }, {passive:true});
 }
 
 // Mobile Menu
@@ -101,7 +115,20 @@ function setMenu(open){
 
 if(toggle) {
   toggle.addEventListener('click', () => setMenu(!links.classList.contains('open')));
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      // If it's a dropdown toggle and we're on mobile
+      if (a.classList.contains('dropdown-toggle') && window.innerWidth <= 768) {
+        e.preventDefault();
+        const parentLi = a.closest('.dropdown');
+        parentLi.classList.toggle('open');
+        a.setAttribute('aria-expanded', parentLi.classList.contains('open'));
+        return;
+      }
+      setMenu(false);
+    });
+  });
   
   document.addEventListener('keydown', event => {
     if(event.key === 'Escape' && links.classList.contains('open')){
@@ -137,3 +164,60 @@ if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
 } else {
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
 }
+
+// Utility Bar Logic (Language & Accessibility)
+document.addEventListener('DOMContentLoaded', () => {
+  // Language Toggle
+  const langBtns = document.querySelectorAll('.lang-btn');
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      langBtns.forEach(b => b.classList.remove('active'));
+      const activeLang = btn.dataset.lang;
+      document.querySelectorAll(`.lang-btn[data-lang="${activeLang}"]`).forEach(b => b.classList.add('active'));
+      document.body.setAttribute('data-lang', activeLang);
+    });
+  });
+
+  // Accessibility Menu
+  const a11yToggle = document.querySelector('.a11y-toggle');
+  const a11yMenu = document.querySelector('.a11y-menu');
+  if (a11yToggle && a11yMenu) {
+    a11yToggle.addEventListener('click', (e) => {
+      const isExpanded = a11yToggle.getAttribute('aria-expanded') === 'true';
+      a11yToggle.setAttribute('aria-expanded', !isExpanded);
+      e.stopPropagation();
+    });
+    
+    document.addEventListener('click', (e) => {
+      if (!a11yToggle.contains(e.target) && !a11yMenu.contains(e.target)) {
+        a11yToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    const contrastBtn = document.getElementById('a11y-contrast');
+    const incBtn = document.getElementById('a11y-text-inc');
+    const decBtn = document.getElementById('a11y-text-dec');
+
+    let contrastEnabled = false;
+    contrastBtn.addEventListener('click', () => {
+      contrastEnabled = !contrastEnabled;
+      document.body.classList.toggle('high-contrast', contrastEnabled);
+      a11yToggle.setAttribute('aria-expanded', 'false');
+    });
+
+    let textScale = 1;
+    incBtn.addEventListener('click', () => {
+      if(textScale < 1.4) {
+        textScale += 0.1;
+        document.documentElement.style.setProperty('--text-scale', textScale);
+      }
+    });
+    
+    decBtn.addEventListener('click', () => {
+      if(textScale > 0.9) {
+        textScale -= 0.1;
+        document.documentElement.style.setProperty('--text-scale', textScale);
+      }
+    });
+  }
+});

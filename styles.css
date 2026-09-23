@@ -42,50 +42,69 @@ body.no-scroll { overflow: hidden; }
 }
 .skip-link:focus { top: 10px; }
 
-/* Info Bar */
-.info-bar {
-  height: 38px; background: var(--navy-deep); color: #fff; font-size: 12px; letter-spacing: 0.05em; display: flex; align-items: center;
+/* Info Bar / Top Utility Bar */
+.top-utility-bar {
+  height: 38px; background: var(--navy-deep); color: #fff; font-size: 12px; letter-spacing: 0.05em; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.info-bar .shell { display: flex; align-items: center; justify-content: space-between; }
-.info-bar a { color: #fff; text-decoration: none; transition: 0.3s; }
-.info-bar a:hover { color: var(--coral); }
+.utility-flex { display: flex; align-items: center; justify-content: space-between; }
+.utility-right { display: flex; gap: 15px; align-items: center; }
+.utility-right a { color: #fff; text-decoration: none; transition: 0.3s; }
+.utility-right a:hover { color: var(--coral); }
 
 /* Header & Nav */
 .site-header {
-  position: absolute; z-index: 10; top: 38px; width: 100%; color: #fff; transition: 0.4s;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: relative; z-index: 10; width: 100%; color: var(--navy-deep); transition: 0.4s; background: #fff;
 }
 .site-header.scrolled {
-  position: fixed; top: 0; background: rgba(24, 36, 66, 0.95); backdrop-filter: blur(10px); border-bottom: 0; box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  /* Handled by sticky nav instead */
 }
-.nav { height: 96px; display: flex; align-items: center; justify-content: space-between; }
-.brand {
-  display: flex; align-items: center; gap: 14px; color: inherit; text-decoration: none;
+
+/* Main Branding Header */
+.main-branding-header {
+  background: var(--ivory); padding: 20px 0; border-bottom: 1px solid var(--line);
 }
-.crest {
-  display: grid; place-items: center; width: 48px; height: 48px; font: 600 28px var(--serif); color: var(--gold-muted); border: 1px solid var(--gold-muted); border-radius: 2px;
+.branding-flex { display: flex; align-items: center; gap: 30px; }
+.logo-container {
+  width: 120px; height: 120px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
 }
-.brand-text strong {
-  display: block; font-family: var(--serif); font-size: 22px; font-weight: 600; line-height: 1.1; letter-spacing: 0.02em;
+.school-logo-img {
+  width: 100%; height: 100%; object-fit: contain;
 }
-.brand-text small {
-  display: block; font-family: var(--hindi); font-size: 13px; margin-top: 4px; color: rgba(255,255,255,0.8);
+.branding-text { display: flex; flex-direction: column; gap: 4px; }
+.school-name-hindi { font-family: var(--hindi); font-size: 22px; color: var(--coral-deep); font-weight: 600; line-height: 1; }
+.school-name-english { font-family: var(--serif); font-size: 32px; font-weight: 700; color: var(--navy-deep); line-height: 1; margin: 0; text-transform: uppercase; letter-spacing: 0.02em; }
+.school-subtitle { font-family: var(--sans); font-size: 14px; color: var(--text-light); }
+
+/* Main Navigation */
+.main-navigation { background: var(--navy-deep); color: #fff; height: 50px; display: flex; align-items: center; transition: 0.3s; border-bottom: 3px solid var(--coral); }
+.main-navigation.sticky { position: fixed; top: 0; left: 0; right: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.mobile-brand { display: none; align-items: center; gap: 10px; }
+.mobile-logo { width: 40px; height: 40px; object-fit: contain; }
+.mobile-name { font-family: var(--serif); font-weight: 600; font-size: 18px; color: #fff; }
+
+.nav-links { display: flex; align-items: center; gap: 32px; margin: 0; padding: 0; list-style: none; }
+.nav-links li { position: relative; }
+.nav-links a {
+  color: #fff; text-decoration: none; font-size: 14px; font-weight: 500; display: block; padding: 15px 0; position: relative; letter-spacing: 0.03em; text-transform: uppercase;
 }
-.nav-links { display: flex; align-items: center; gap: 32px; }
-.nav-links > a {
-  color: inherit; text-decoration: none; font-size: 14px; font-weight: 500; position: relative; letter-spacing: 0.03em; text-transform: uppercase;
+.nav-links > li > a::after {
+  content: ""; position: absolute; bottom: 8px; left: 0; width: 0; height: 2px; background: var(--coral); transition: 0.3s;
 }
-.nav-links > a:not(.nav-contact)::after {
-  content: ""; position: absolute; bottom: -6px; left: 0; width: 0; height: 1px; background: var(--coral); transition: 0.3s;
+.nav-links > li > a:hover::after, .nav-links > li > a.active::after { width: 100%; }
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute; top: 100%; left: 0; background: #fff; color: var(--navy-deep); min-width: 220px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); opacity: 0; visibility: hidden; transition: 0.3s; transform: translateY(10px); list-style: none; padding: 10px 0; margin: 0; z-index: 20; border-top: 3px solid var(--coral);
 }
-.nav-links > a:hover::after { width: 100%; }
-.nav-contact {
-  padding: 12px 20px; border: 1px solid rgba(255,255,255,0.4); border-radius: 2px; transition: 0.3s;
-}
-.nav-contact:hover { background: #fff; color: var(--navy-deep); border-color: #fff; }
+.dropdown:hover .dropdown-menu, .dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: none; }
+.dropdown-menu li { padding: 0; }
+.dropdown-menu a { padding: 10px 20px; color: var(--text-main); font-size: 14px; text-transform: none; display: block; }
+.dropdown-menu a:hover { background: var(--pink-soft); color: var(--coral-deep); }
+.caret { font-size: 10px; margin-left: 4px; vertical-align: middle; }
 
 .menu-toggle { display: none; background: transparent; color: #fff; border: 0; padding: 8px; cursor: pointer; }
-.menu-toggle span:not(.sr-only) { width: 26px; height: 2px; background: currentColor; display: block; margin: 6px 0; transition: 0.3s; }
+.menu-toggle span { width: 26px; height: 2px; background: currentColor; display: block; margin: 6px 0; transition: 0.3s; }
 
 /* Typography */
 h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; color: var(--navy-deep); line-height: 1.2; margin: 0 0 20px; }
@@ -126,7 +145,7 @@ h2 { font-size: clamp(32px, 4vw, 48px); }
   position: absolute; inset: 0; background: linear-gradient(90deg, rgba(24,36,66,0.9) 0%, rgba(24,36,66,0.6) 50%, rgba(24,36,66,0.2) 100%);
 }
 .hero-content {
-  position: relative; max-width: 1200px; padding-top: 60px;
+  position: relative; max-width: 1200px;
 }
 .hero-hindi { font-family: var(--hindi); font-size: clamp(28px, 4vw, 42px); color: var(--coral); margin: 0 0 10px; font-weight: 500; }
 .hero h1 { font-family: var(--serif); font-size: clamp(42px, 6vw, 72px); color: #fff; font-weight: 600; text-transform: uppercase; margin: 0 0 24px; letter-spacing: 0.02em; }
@@ -252,20 +271,35 @@ footer { background: var(--navy-deep); color: rgba(255,255,255,0.7); padding: 80
 }
 
 @media (max-width: 768px) {
-  .info-bar { display: none; }
-  .site-header { top: 0; background: var(--navy-deep); padding: 10px 0; }
-  .nav { height: 60px; }
-  .crest { width: 36px; height: 36px; font-size: 20px; }
-  .brand-text strong { font-size: 16px; }
-  .brand-text small { font-size: 10px; }
+  .top-utility-bar { display: none; }
+  .main-branding-header { padding: 15px 0; }
+  .branding-flex { flex-direction: column; text-align: center; gap: 15px; }
+  .logo-container { width: 90px; height: 90px; margin-top: 0; }
+  .school-name-english { font-size: 22px; }
+  .school-name-hindi { font-size: 18px; }
+  .school-subtitle { font-size: 12px; }
   
-  .menu-toggle { display: block; z-index: 100; }
+  .main-navigation { height: 60px; }
+  .mobile-brand { display: flex !important; }
+  .menu-toggle { display: block; z-index: 100; position: relative; }
+  
   .nav-links {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--navy-deep); padding: 100px 30px 40px;
-    flex-direction: column; align-items: flex-start; gap: 24px; transform: translateX(100%); transition: 0.4s ease-in-out;
+    position: fixed; top: 0; right: 0; width: 85%; max-width: 350px; height: 100vh; background: var(--navy-deep); padding: 80px 30px 40px;
+    flex-direction: column; align-items: flex-start; gap: 0; transform: translateX(100%); transition: 0.4s ease-in-out;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto;
   }
-  .nav-links.open { transform: none; }
-  .nav-links > a { font-size: 20px; }
+  .nav-links.open { transform: translateX(0); }
+  .nav-links li { width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .nav-links a { font-size: 16px; padding: 15px 0; width: 100%; }
+  .dropdown-menu { position: static; box-shadow: none; opacity: 1; visibility: visible; transform: none; display: none; border: none; padding: 0 0 15px 15px; background: transparent; }
+  .dropdown.open .dropdown-menu { display: block; }
+  .dropdown-menu a { color: rgba(255,255,255,0.8); padding: 8px 0; font-size: 14px; }
+  .dropdown-menu a:hover { background: transparent; color: var(--coral); }
+  .dropdown > a { display: flex; justify-content: space-between; align-items: center; }
+  .caret { font-size: 14px; transition: 0.3s; }
+  .dropdown.open .caret { transform: rotate(180deg); }
+  
+  .site-header.scrolled { top: 0; position: absolute; } /* Disable old logic */
   
   .hero h1 { font-size: clamp(32px, 8vw, 42px); }
   .hero-hindi { font-size: 24px; }
@@ -279,3 +313,40 @@ footer { background: var(--navy-deep); color: rgba(255,255,255,0.7); padding: 80
   .lightbox { padding: 20px; }
   .lightbox-close { top: 20px; right: 20px; width: 40px; height: 40px; font-size: 20px; }
 }
+
+/* Utility buttons */
+:root { --text-scale: 1; }
+html { font-size: calc(16px * var(--text-scale)); }
+
+.utility-right button { background: none; border: none; color: inherit; cursor: pointer; font: inherit; padding: 0; }
+.utility-right button:hover { color: var(--coral); }
+.utility-right button.active { font-weight: 700; text-decoration: underline; }
+
+.a11y-dropdown { position: relative; display: inline-block; }
+.a11y-menu { position: absolute; top: 100%; right: 0; background: #fff; color: var(--navy-deep); min-width: 180px; padding: 10px; display: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 100; border-top: 3px solid var(--coral); }
+.a11y-toggle[aria-expanded="true"] + .a11y-menu { display: flex; flex-direction: column; gap: 5px; }
+.a11y-menu button { color: var(--text-main); text-align: left; padding: 8px 12px; width: 100%; transition: 0.2s; font-size: 14px; }
+.a11y-menu button:hover { background: var(--pink-soft); color: var(--coral-deep); }
+
+/* Language Toggle Logic */
+body[data-lang="hi"] .english:not(.school-name-english):not(.brand-text strong) { display: none !important; }
+body[data-lang="en"] .hindi:not(.school-name-hindi):not(.brand-text small) { display: none !important; }
+
+/* High Contrast Mode */
+body.high-contrast {
+  --ivory: #000; --pink-soft: #111; --navy: #000; --navy-deep: #000; --coral: #ffea00; --coral-deep: #ffea00;
+  --text-main: #fff; --text-light: #ddd; --maroon: #ffea00; --line: rgba(255,255,255,0.2);
+  background: #000; color: #fff;
+}
+body.high-contrast .site-header, body.high-contrast .main-branding-header, body.high-contrast .dropdown-menu { background: #000; color: #fff; border-color: #fff; }
+body.high-contrast .school-name-english, body.high-contrast .school-name-hindi, body.high-contrast .school-subtitle { color: #fff; }
+body.high-contrast a, body.high-contrast button { color: #ffea00; }
+body.high-contrast .nav-links > li > a { color: #fff; }
+body.high-contrast .nav-links > li > a:hover { color: #ffea00; }
+body.high-contrast .school-logo-img { filter: grayscale(1) brightness(1.5); }
+body.high-contrast .button-coral { background: #000; color: #ffea00; border: 2px solid #ffea00; }
+body.high-contrast .button-outline, body.high-contrast .button-outline-light { border-color: #ffea00; color: #ffea00; }
+body.high-contrast .hero-image, body.high-contrast .life-side-img img, body.high-contrast .life-feature img, body.high-contrast .heritage-image img { filter: grayscale(1); }
+body.high-contrast .a11y-menu { background: #000; border: 1px solid #ffea00; }
+body.high-contrast .a11y-menu button { color: #fff; }
+body.high-contrast .a11y-menu button:hover { background: #222; color: #ffea00; }
